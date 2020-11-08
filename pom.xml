@@ -16,7 +16,7 @@
 		<groupId>com.mulesoft.training.anyairline</groupId>
 		<artifactId>parent-pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>./parent-pom.xml</relativePath>
+		<relativePath>../parent-pom.xml</relativePath>
 	</parent>
 
 	<properties>
