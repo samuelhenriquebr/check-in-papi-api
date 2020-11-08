@@ -68,7 +68,7 @@ http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/m
 		doc:name="Global Property"
 		doc:id="9236ea21-b315-41a9-bc04-1053aa78f7db"
 		name="env"
-		value="prod" />
+		value="dev" />
 
 	<secure-properties:config
 		name="Secure_Properties_Config"
