@@ -27,6 +27,7 @@
 		<mule.secure.config.prop.module.version>1.2.3</mule.secure.config.prop.module.version>
 		<mssvc.ap.orgid>634484c9-5d06-4c8d-bd7e-5817d5612596</mssvc.ap.orgid>
 		<json.logger.version>2.0.1</json.logger.version>
+		<apps-commons.version>1.0.0-SNAPSHOT</apps-commons.version>
 	</properties>
 
 	<build>
@@ -82,7 +83,7 @@
 			<dependency>
 				<groupId>com.mulesoft.training.anyairline</groupId>
 				<artifactId>apps-commons</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>${apps-commons.version}</version>
 				<classifier>mule-plugin</classifier>
 			</dependency>
 		</dependencies>
