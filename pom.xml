@@ -24,6 +24,7 @@
 		<api.groupId>634484c9-5d06-4c8d-bd7e-5817d5612596</api.groupId>
 		<api.artifactId>check-in-papi</api.artifactId>
 		<api.version>1.0.0</api.version>
+		<api.layer>${api.layer.papi}</api.layer>
 	</properties>
 
 	<build>
