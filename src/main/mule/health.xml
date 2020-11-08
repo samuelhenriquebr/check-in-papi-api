@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+
+
+	<flow
+		name="api-alive"
+		doc:id="d0e8716c-eb4a-475c-8f74-6ce0a298635f">
+		<http:listener doc:name="GET /alive" doc:id="213995c1-8647-4f61-abb2-d8352d2380d3" config-ref="apiHttpsListenerConfig" path="/alive" allowedMethods="GET">
+			<http:response statusCode="200" reasonPhrase="API IS ALIVE" />
+			<http:error-response statusCode="503" reasonPhrase="API IS NOT ALIVE">
+				<http:body ><![CDATA[#['DOWN']]]></http:body>
+			</http:error-response>
+		</http:listener>
+		<set-payload value="#['UP']" doc:name="Set Payload" doc:id="65c2cad6-254d-45df-b2ab-cc3264c0f922" />
+	</flow>
+	
+	
+		
+	<flow name="api-ready" doc:id="53f6b10d-42c0-4914-a9fe-7a59935da66e" >
+		<http:listener doc:name="GET /ready" doc:id="4a7f090e-91fa-4089-8ed7-6b91ca53c28a" config-ref="apiHttpsListenerConfig" path="/ready" allowedMethods="GET">
+			<http:response statusCode="200" reasonPhrase="API IS READY" />
+			<http:error-response statusCode="503" reasonPhrase="API IS NOT READY">
+				<http:body ><![CDATA[#['DOWN']]]></http:body>
+			</http:error-response>
+		</http:listener>
+		<flow-ref doc:name="Flow Reference" doc:id="d43d7b4c-1c32-4b12-b535-28bf9c9700dc" name="check-all-dependencies-are-alive"/>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="22653a94-e5fe-497e-8cdb-5825b353d043" />
+	
+	</flow>
+	
+	
+	<sub-flow name="check-all-dependencies-are-alive" doc:id="51c26fc4-003b-49da-a39c-9cee235b8199" >
+		<set-payload value="#['UP']" doc:name="Set Payload" doc:id="ed63fd5f-f176-4814-aacb-ed4ce856150f" />
+	</sub-flow>
+	
+</mule>
