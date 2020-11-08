@@ -25,6 +25,8 @@
 		<mule.apikit.module.version>1.3.18</mule.apikit.module.version>
 		<mule.http.connector.version>1.5.23</mule.http.connector.version>
 		<mule.secure.config.prop.module.version>1.2.3</mule.secure.config.prop.module.version>
+		<mssvc.ap.orgid>634484c9-5d06-4c8d-bd7e-5817d5612596</mssvc.ap.orgid>
+		<json.logger.version>2.0.1</json.logger.version>
 	</properties>
 
 	<build>
@@ -70,6 +72,13 @@
 				<version>${mule.secure.config.prop.module.version}</version>
 				<classifier>mule-plugin</classifier>
 			</dependency>
+			<!-- JSON Logger -->
+			<dependency>
+				<groupId>${mssvc.ap.orgid}</groupId>
+				<artifactId>json-logger</artifactId>
+				<version>${json.logger.version}</version>
+				<classifier>mule-plugin</classifier>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -79,6 +88,15 @@
 			<name>Anypoint Exchange</name>
 			<url>https://maven.anypoint.mulesoft.com/api/v2/maven</url>
 			<layout>default</layout>
+		</repository>
+		<repository>
+			<id>anypoint-exchange-mssvc</id>
+			<name>Anypoint Exchange</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v2/maven</url>
+			<layout>default</layout>
+			<releases>
+				<updatePolicy>always</updatePolicy>
+			</releases>
 		</repository>
 		<repository>
 			<id>mulesoft-releases</id>

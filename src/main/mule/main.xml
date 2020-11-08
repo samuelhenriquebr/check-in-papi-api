@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <mule
+	xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger"
 	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
 	xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
 
 
 	<flow
 		name="get-ticket-by-pnr"
 		doc:id="9fbef323-e2f0-4245-8f06-bf0cf8f716b8">
-		<ee:transform>
+		<json-logger:logger-scope doc:name="Logger scope" doc:id="932f2b66-bb7d-44d3-9d4b-20a0d7b626dc" configurationRef="jLogConfig" scopeTracePoint="DATA_TRANSFORM_SCOPE">
+			<ee:transform>
             <ee:message>
 				<ee:set-payload resource="dw/sample-boarding-pass.dwl" />
             </ee:message>
         </ee:transform>
+		</json-logger:logger-scope>
 	</flow>
 	
 	
@@ -30,11 +33,29 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	
 	
 	<flow name="check-in-by-pnr" doc:id="fef0195a-86c5-4b19-8f42-62930640cf8e" >
+		<json-logger:logger doc:name="Logger - START" doc:id="5970898f-7343-43ef-a49b-aaea0a7cf9af" config-ref="jLogConfig" message="#['Checking in by PNR....']">
+			<json-logger:content ><![CDATA[#[import modules::JSONLoggerModule output application/json ---
+{
+    //payload: JSONLoggerModule::stringifyNonJSON(payload),
+    payload: message.payload,
+    attribs: message.attributes,
+    pnr: vars.PNR 
+}]]]></json-logger:content>
+		</json-logger:logger>
 		<ee:transform>
             <ee:message>
 				<ee:set-payload resource="dw/sample-payment-id.dwl" />
             </ee:message>
         </ee:transform>
+		<json-logger:logger doc:name="Logger - END" doc:id="d87f5fa4-e911-46d7-9a16-1145de062ad0" config-ref="jLogConfig" message="#['Checked in by PNR....']" tracePoint="END">
+			<json-logger:content ><![CDATA[#[import modules::JSONLoggerModule output application/json ---
+{
+    //payload: JSONLoggerModule::stringifyNonJSON(payload),
+    payload: message.payload,
+    attribs: message.attributes,
+    pnr: vars.PNR 
+}]]]></json-logger:content>
+		</json-logger:logger>
 	</flow>
 
 
